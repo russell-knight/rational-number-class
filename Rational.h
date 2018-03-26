@@ -1,33 +1,52 @@
 
+namespace rational
+{
 
-class Rational {
+int gcd(int a, int b)
+{
+	return b == 0 ? a : gcd(b, a % b);
+}
 
-	public:
-		Rational(int numerator, int denominator)
-		{
-			n= numerator;
-			d=denominator;
-		}
-		
-		int numerator() const
-		{
-			return n;
-		}
+class Rational
+{
 
-		int denominator() const
-		{
+  public:
+	Rational(int numerator, int denominator)
+	{
+		n = numerator;
+		d = denominator;
+	}
+
+	int numerator() const
+	{
+		return n;
+	}
+
+	int denominator() const
+	{
 		return d;
-		}
+	}
 
-		int GCD(int a, int b)
+	void simplify()
+	{
+		int gcd = this->gcd();
+		n = n / gcd;
+		d = d / gcd;
+
+		if (d < 0)
 		{
-			return b==0?a:GCD(b,a%b);
+			d = -1 * d;
+			n = -1 * n;
 		}
-		
-		// Simplify method (reducing rational to simplest form)
-		// Overloaded operators (+ - * / < > == !=) 
+	}
+	// Overloaded operators (+ - * / < > == !=)
 
+  private:
+	int n, d; // Numerator & Denominator
 
-	private:
-		int n, d; // Numerator & Denominator
+	int gcd()
+	{
+		return rational::gcd(n, d);
+	}
+};
 }
