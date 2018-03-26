@@ -1,7 +1,6 @@
-#include <iostream>
-using namespace std;
 
-class rational {
+
+class Rational {
 
 	public:
 		// Constructors & Destructor
