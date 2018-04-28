@@ -28,7 +28,18 @@ class Rational
 {
 
   public:
-	Rational(int numerator, int denominator);
+
+	void simplify()
+	{
+		rational::simplify(_numerator, _denominator);
+	}
+
+	Rational(int numerator, int denominator)
+	{
+		_numerator = numerator;
+		_denominator = denominator;
+		this->simplify();
+	}
 
 	int numerator() const
 	{
@@ -40,15 +51,13 @@ class Rational
 		return _denominator;
 	}
 
-	void simplify()
-	{
-		rational::simplify(_numerator, _denominator);
-	}
+
 
 	// Overloaded operators (+ - * / < > == !=)
 
 	Rational operator*(const Rational &other) const
-	{ //cast to long long to avoid overflow
+	{ 
+		//cast to long long to avoid overflow
 		long long n1 = this->_numerator;
 		long long d1 = this->_denominator;
 		long long n2 = other._numerator;
@@ -110,9 +119,9 @@ class Rational
 		return a.numerator == b.numerator && a.denominator == b.denominator;
 	}
 
-	bool operator != (const Rational & other) const
+	bool operator!=(const Rational &other) const
 	{
-		return !(*this==other);
+		return !(*this == other);
 	}
 
 	bool operator<(const Rational &other) const
@@ -126,17 +135,17 @@ class Rational
 
 	bool operator>(const Rational &other) const
 	{
-		return other<*this;
+		return other < *this;
 	}
 
 	bool operator<=(const Rational &other) const
 	{
-		return !(other<*this);
+		return !(other < *this);
 	}
 
 	bool operator>=(const Rational &other) const
 	{
-		return !(*this<other);
+		return !(*this < other);
 	}
 
   private:
